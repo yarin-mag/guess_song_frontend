@@ -1,0 +1,53 @@
+{
+	"layout": {
+		"title": "🎧 Guess the Song",
+		"signIn": "Sign In",
+		"signUp": "Sign Up"
+	},
+	"audioPlayer": {
+		"unsupported": "Your browser does not support the audio element.",
+		"loading": "Loading clip..."
+	},
+	"guessInput": {
+		"placeholder": "Enter your guess"
+	},
+	"payPal": {
+		"success": "Subscription successful! ID: {id}",
+		"error": "An error occurred during the PayPal transaction."
+	},
+	"submitButton": {
+		"text": "Submit Guess"
+	},
+	"page": {
+		"title": "Daily Music Guess",
+		"subtitle": "Can you recognize the song by its sound?",
+		"signedIn": "you're signed in!",
+		"guessesToday": "Your Guesses Today",
+		"loadingHistory": "Loading guess history...",
+		"errors": {
+			"emptyGuess": "❌ Please enter a guess first!",
+			"dailyLimit": "❌ You've reached the daily limit (5 guesses). Subscribe for unlimited!",
+			"historyFetch": "❌ Failed to fetch guess history. Please try again later."
+		},
+		"subscribe": {
+			"title": "Subscribe to get unlimited guesses!",
+			"subtitle": "Unlock endless fun and never miss a guess.",
+			"close": "Close"
+		}
+	},
+	"layout.subscription": "Subscription",
+	"modal.subscription.title": "Subscription Status",
+	"modal.subscription.active": "You're subscribed to the game!",
+	"modal.subscription.inactive": "You are not currently subscribed.",
+	"modal.subscription.cancel": "Cancel Subscription",
+	"modal.subscription.close": "Close",
+	"termsModal": {
+		"title": "Terms and Conditions",
+		"paragraph1": "By using this service, you agree that all activities are at your own risk. The platform and its owners are not liable for any direct or indirect damages arising from your use of the service.",
+		"paragraph2": "We collect limited user data necessary for providing and improving the service. Your information is stored securely and is not shared with third parties unless required by law.",
+		"paragraph3": "Subscriptions are billed monthly until you cancel. Upon cancellation, you will retain access until the end of the billing cycle. No partial refunds are offered.",
+		"paragraph4": "This platform operates on a limited budget and may be shut down at any time without prior notice. In the event of a shutdown, active subscriptions will be honored only until the moment of closure. No refunds or legal claims will be accepted related to service discontinuation.",
+		"agree": "I Agree",
+		"loading": "Loading..."
+	}
+}
