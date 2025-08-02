@@ -14,6 +14,7 @@
   import { isTermsModalOpen } from '$lib/stores/modalStore';
   import { user as userStore } from '$lib/stores/userStore';
   import { get } from 'svelte/store';
+  import { debounce } from '$lib/utils/debounce';
 
   let clipUrl = '';
   let guess = '';
@@ -21,6 +22,7 @@
   let guesses: { guess: string; correct: boolean; score?: number }[] = [];
   let showSubscribeModal = false;
   let userFetchInFlight: Promise<any> | null = null;
+  let creditUrl: string | null = null;
 
   let guessHistoryPromise: Promise<any[]> | null = null;
 
@@ -93,7 +95,7 @@
     isTermsModalOpen.set($userStore.agree_to_conditions_and_terms == null);
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = debounce(async () => {
     if (!get(userStore)) {
       goto('/sign-in');
       return;
@@ -114,6 +116,10 @@
       const message = await submitGuess(guess);
       const correct = message?.is_correct;
 
+      if (message.credit_url) {
+        creditUrl = message.credit_url;
+      }
+
       saveGuess(guess, correct, message.score);
       guesses = getGuessHistory();
       result = message;
@@ -122,7 +128,7 @@
       console.error('Error submitting guess:', error);
       result = { message: error.message || 'An unknown error occurred.', is_correct: false };
     }
-  };
+  }, 500);
 </script>
 
 <div class="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-[#1e1b4b] via-[#1e293b] to-black text-white space-y-8">
@@ -138,6 +144,15 @@
     <AudioPlayer {clipUrl} />
     <GuessInput bind:guess on:submit={handleSubmit} />
     <SubmitButton onClick={handleSubmit} />
+
+    {#if creditUrl}
+      <div class="text-center p-4 bg-green-500/20 rounded-lg">
+        <p>{$t('page.correctGuess')}</p>
+        <a href={creditUrl} target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">
+          {$t('page.watchOnYouTube')}
+        </a>
+      </div>
+    {/if}
 
     {#if guessHistoryPromise}
       {#await guessHistoryPromise}

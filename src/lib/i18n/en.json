@@ -24,6 +24,8 @@
 		"signedIn": "you're signed in!",
 		"guessesToday": "Your Guesses Today",
 		"loadingHistory": "Loading guess history...",
+		"correctGuess": "Correct! 🎉 Here's a link to the original song:",
+		"watchOnYouTube": "Watch on YouTube",
 		"errors": {
 			"emptyGuess": "❌ Please enter a guess first!",
 			"dailyLimit": "❌ You've reached the daily limit (5 guesses). Subscribe for unlimited!",

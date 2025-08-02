@@ -89,14 +89,6 @@ export async function submitGuess(guess: string): Promise<{ score: number; messa
 	return await response.json();
 }
 
-export function submitGuessWithRetry(
-	guess: string,
-	retries = 3,
-	delay = 1000
-): Promise<{ score: number; message: string }> {
-	return retry(() => submitGuess(guess), retries, delay);
-}
-
 export async function fetchGuessHistory(): Promise<any[]> {
 	const token = await getToken();
 

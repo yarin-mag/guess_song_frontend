@@ -1,38 +1,44 @@
-# sv
+# Guess Song Frontend
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This is the frontend for the Guess Song application, built with SvelteKit.
 
-## Creating a project
+## Getting Started
 
-If you're seeing this, you've probably already done this step. Congrats!
+### Prerequisites
 
-```bash
-# create a new project in the current directory
-npx sv create
+- Node.js (version 18.x or higher)
+- npm
 
-# create a new project in my-app
-npx sv create my-app
-```
+### Installation
 
-## Developing
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/YarinAV/guess-song.git
+    ```
+2.  Navigate to the frontend directory:
+    ```bash
+    cd guess-song/frontend
+    ```
+3.  Install the dependencies:
+    ```bash
+    npm install
+    ```
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Running the Application
+
+Once the dependencies are installed, you can run the development server:
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+The application will be available at [http://localhost:5173](http://localhost:5173).
 
-To create a production version of your app:
+## Available Scripts
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+-   `npm run dev`: Starts the development server.
+-   `npm run build`: Builds the application for production.
+-   `npm run preview`: Previews the production build.
+-   `npm run check`: Runs Svelte check to validate the code.
+-   `npm run lint`: Lints the code using ESLint and Prettier.
+-   `npm run format`: Formats the code with Prettier.
