@@ -116,3 +116,6 @@ public
 
 # VS Code
 .vscode/
+
+all.txt
+data_collector.py
