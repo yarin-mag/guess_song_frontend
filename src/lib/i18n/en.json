@@ -29,13 +29,19 @@
 		"errors": {
 			"emptyGuess": "❌ Please enter a guess first!",
 			"dailyLimit": "❌ You've reached the daily limit (5 guesses). Subscribe for unlimited!",
-			"historyFetch": "❌ Failed to fetch guess history. Please try again later."
+			"historyFetch": "❌ Failed to fetch guess history. Please try again later.",
+			"unknown": "An unknown error occurred.",
+			"history": "Error loading history: {message}"
 		},
 		"subscribe": {
 			"title": "Subscribe to get unlimited guesses!",
 			"subtitle": "Unlock endless fun and never miss a guess.",
 			"close": "Close"
-		}
+		},
+		"guessesTodayCount": "#NO Your Guesses Today",
+		"notAvailable": "N/A",
+		"yesterdaySolution": "Yesterday's Solution",
+		"by": "by"
 	},
 	"layout.subscription": "Subscription",
 	"modal.subscription.title": "Subscription Status",

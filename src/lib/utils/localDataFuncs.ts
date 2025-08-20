@@ -1,4 +1,4 @@
-export type UserEntry = { 
+export type UserEntry = {
     id: string;
     is_subscribed: boolean;
     guesses_left: number;
@@ -19,6 +19,12 @@ export type GuessEntry = {
     score: number;
 };
 
+export type Song = {
+    title: string;
+    artist: string;
+    credit_url: string;
+}
+
 const MAX_GUESSES_PER_DAY = 5;
 
 // Moved to be exportable
@@ -27,14 +33,19 @@ export const getTodayKey = (prefix: string) => {
     return `${prefix}${today}`;
 };
 
-export function getLocalUser(): UserEntry {
+export function getLocalUser(): UserEntry | null {
     const raw = localStorage.getItem(getTodayKey('user_history_'));
-    return raw ? JSON.parse(raw) : [];
+    return raw ? JSON.parse(raw) : null;
 }
 
 export function getGuessHistory(): GuessEntry[] {
     const raw = localStorage.getItem(getTodayKey('guess_history_'));
     return raw ? JSON.parse(raw) : [];
+}
+
+export function getWinnerSong(): Song | null{
+    const raw = localStorage.getItem(getTodayKey('winner_song_'));
+    return raw ? JSON.parse(raw) : null;
 }
 
 export function saveGuess(guess: string, correct: boolean, score: number): void {
@@ -44,12 +55,19 @@ export function saveGuess(guess: string, correct: boolean, score: number): void 
     localStorage.setItem(getTodayKey('guess_history_'), JSON.stringify([...history, newEntry]));
 }
 
+export function saveWinnerSong(title: string, artist: string, credit_url: string): void {
+    const winnerSong = { title, artist, credit_url };
+    localStorage.setItem(getTodayKey('winner_song_'), JSON.stringify(winnerSong));
+}
+
 export function remainingGuesses(): number {
     return MAX_GUESSES_PER_DAY - getGuessHistory().length;
 }
 
 export function clearLocalData(): void {
-    localStorage.clear();
+    localStorage.removeItem(getTodayKey('user_history_'));
+    localStorage.removeItem(getTodayKey('guess_history_'));
+    localStorage.removeItem('last_cleared_date_key');
 }
 
 export function clearDailyHistory(): void {

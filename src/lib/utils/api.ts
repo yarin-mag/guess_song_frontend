@@ -29,14 +29,17 @@ async function retry<T>(fn: () => Promise<T>, retries = 3, delay = 1000): Promis
 	throw new Error('Should not be reached');
 }
 
-export async function fetchClip(): Promise<string> {
+export async function fetchTodayAndYesterdaySongs(): Promise<{ today: { clip_url: string; credit_clip?: string } | null; yesterday: { title: string; artist: string; clip_url: string; } | null; }> {
 	const res = await fetch(`${API_URL}/songs/daily`);
+	if (!res.ok) {
+		throw new Error('Failed to fetch daily songs');
+	}
 	const data = await res.json();
-	return data.clip_url;
+	return data;
 }
 
-export function fetchClipWithRetry(retries = 3, delay = 1000): Promise<string> {
-	return retry(fetchClip, retries, delay);
+export function fetchTodayAndYesterdaySongsWithRetry(retries = 3, delay = 1000) {
+	return retry(fetchTodayAndYesterdaySongs, retries, delay);
 }
 
 export async function fetchUser(): Promise<User | null> {
@@ -65,7 +68,7 @@ export function fetchUserWithRetry(retries = 3, delay = 1000): Promise<User | nu
 	return retry(fetchUser, retries, delay);
 }
 
-export async function submitGuess(guess: string): Promise<{ score: number; message: string }> {
+export async function submitGuess(guess: string): Promise<any> {
 	const token = await getToken();
 
 	if (!token) {
@@ -113,6 +116,32 @@ export async function fetchGuessHistory(): Promise<any[]> {
 
 export function fetchGuessHistoryWithRetry(retries = 3, delay = 20000): Promise<any[]> {
 	return retry(fetchGuessHistory, retries, delay);
+}
+
+export async function fetchWinnerSong(): Promise<any> {
+	const token = await getToken();
+
+	if (!token) {
+		return [];
+	}
+
+	const response = await fetch(`${API_URL}/songs/winner`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json'
+		}
+	});
+
+	if (!response.ok) {
+		console.error('Failed to fetch guess history');
+		return {};
+	}
+
+	return await response.json();
+}
+
+export function fetchWinnerSongWithRetry(retries = 3, delay = 20000): Promise<any> {
+	return retry(fetchWinnerSong, retries, delay);
 }
 
 export async function cancelSubscription(): Promise<void> {

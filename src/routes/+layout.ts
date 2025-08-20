@@ -3,8 +3,8 @@ import { browser } from '$app/environment';
 import type { LayoutLoad } from './$types';
 import { user } from '$lib/stores/userStore';
 import { guessHistory } from '$lib/stores/guessHistoryStore';
-import { isTermsModalOpen } from '$lib/stores/modalStore';
-import { fetchGuessHistoryWithRetry, fetchUserWithRetry } from '$lib/utils/api';
+import song from '$lib/stores/songStore';
+import { fetchGuessHistoryWithRetry, fetchUserWithRetry, fetchWinnerSongWithRetry } from '$lib/utils/api';
 
 export const load = async (event: Parameters<LayoutLoad>[0]) => {
 	const {
@@ -14,18 +14,15 @@ export const load = async (event: Parameters<LayoutLoad>[0]) => {
 	if (browser) {
 		lang = localStorage.getItem('lang') || 'en';
 		try {
-			const [userData, guessHistoryData] = await Promise.all([
+			const [userData, guessHistoryData, winnerSong] = await Promise.all([
 				fetchUserWithRetry(),
-				fetchGuessHistoryWithRetry()
+				fetchGuessHistoryWithRetry(),
+				fetchWinnerSongWithRetry(),
 			]);
 			user.set(userData);
 			guessHistory.set(guessHistoryData);
+			song.set(winnerSong);
 
-			// if (userData && userData.agree_to_conditions_and_terms === null) {
-			// 	isTermsModalOpen.set(true);
-			// } else {
-			// 	isTermsModalOpen.set(false);
-			// }
 		} catch (error) {
 			console.error('Failed to fetch data:', error);
 		}
